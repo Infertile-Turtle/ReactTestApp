@@ -111,7 +111,7 @@ function App() {
   // function to get linkId from the URL
   function getLinkIdFromUrl() {
     const url = window.location.href;
-    const linkId = url.substr(url.lastIndexOf('/') + 1);
+    const linkId = url.substring(url.lastIndexOf('/') + 1);
     setLinkId(linkId);
   }
 

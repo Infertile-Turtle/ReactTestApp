@@ -120,7 +120,7 @@ function App() {
     const url = `https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/fetchdata`;
     const data = { linkID: linkId };
     const response = await fetch(url, {
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });

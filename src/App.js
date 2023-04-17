@@ -103,6 +103,7 @@ function App() {
     console.log('data', data);
 
     if (response.ok) {
+      console.log('response OK block running');
       setResult(result);
       const clickUrl = `https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/updateclickcount`;
       await fetch(clickUrl, {
@@ -111,6 +112,7 @@ function App() {
         body: JSON.stringify(data),
       });
     } else {
+      console.log('response NOT OK block running');
       setResult(null);
       setError(true);
       console.log('result', result);
@@ -125,7 +127,7 @@ function App() {
           className='App-logo'
           alt='logo'
         />
-        {result !== null && !error ? (
+        {result.type !== null && !error ? (
           <h1>{result}</h1>
         ) : (
           <h1>{error ? 'Error, item does not exist' : 'Hello from V2'}</h1>

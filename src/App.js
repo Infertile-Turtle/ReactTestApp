@@ -115,6 +115,10 @@ function App() {
 
     setResult(responseData);
 
+    console.log('result', result);
+    console.log('response', response);
+    console.log('data', data);
+
     const clickUrl = `https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/updateclickcount`;
     await fetch(clickUrl, {
       method: 'POST',

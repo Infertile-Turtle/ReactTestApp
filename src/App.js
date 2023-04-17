@@ -61,6 +61,7 @@ import './App.css';
 function App() {
   const [linkId, setLinkId] = useState('');
   const [result, setResult] = useState(null);
+  const [error, setError] = useState(false);
 
   // function to get linkId from the URL
   function getLinkIdFromUrl() {
@@ -87,16 +88,16 @@ function App() {
     console.log('response', response);
     console.log('data', data);
 
-    const clickUrl = `https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/updateclickcount`;
-    await fetch(clickUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
     if (response.ok) {
       setResult(result);
+      const clickUrl = `https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/updateclickcount`;
+      await fetch(clickUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
     } else {
-      setResult('Error, item does not exist');
+      setError(true);
     }
   }
 
@@ -108,7 +109,11 @@ function App() {
           className='App-logo'
           alt='logo'
         />
-        {result !== null ? <h1>{result}</h1> : <h1>Hello from V2</h1>}
+        {result !== null && !error ? (
+          <h1>{result}</h1>
+        ) : (
+          <h1>{error ? 'Error, item does not exist' : 'Hello from V2'}</h1>
+        )}
         <button onClick={handleClick}>Generate Link</button>
       </header>
     </div>

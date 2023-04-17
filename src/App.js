@@ -60,6 +60,7 @@ import './App.css';
 
 function App() {
   const [linkId, setLinkId] = useState('');
+  const [result, setResult] = useState(null);
 
   // function to get linkId from the URL
   function getLinkIdFromUrl() {
@@ -92,6 +93,11 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
+    if (response.ok) {
+      setResult(result);
+    } else {
+      setResult('Error, item does not exist');
+    }
   }
 
   return (
@@ -102,7 +108,7 @@ function App() {
           className='App-logo'
           alt='logo'
         />
-        <h1>Hello from V2</h1>
+        {result !== null ? <h1>{result}</h1> : <h1>Hello from V2</h1>}
         <button onClick={handleClick}>Generate Link</button>
       </header>
     </div>

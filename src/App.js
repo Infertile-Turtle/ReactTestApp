@@ -123,9 +123,9 @@ function App() {
     });
   }
 
-  console.log('result', result);
-  console.log('response', response);
-  console.log('data', data);
+  // console.log('result', result);
+  // console.log('response', response);
+  // console.log('data', data);
 
   return (
     <div className='App'>

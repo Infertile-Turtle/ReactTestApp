@@ -2,67 +2,66 @@ import React, { useState } from 'react';
 
 function GenerateLink() {
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phone, setPhone] = useState('');
+  const [showLinkOptions, setShowLinkOptions] = useState(false);
 
-  const handleSMSSubmit = async e => {
-    e.preventDefault();
-    const response = await fetch(
-      'https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/sendurl_sms',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, phone_number: phoneNumber }),
-      }
-    );
-    if (response.ok) {
-      console.log('SMS sent successfully');
-    } else {
-      console.error('Error sending SMS');
-    }
-  };
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
 
-  const handleEmailSubmit = async e => {
-    e.preventDefault();
-    const response = await fetch(
-      'https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/sendurl_email',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, phone_number: phoneNumber }),
-      }
-    );
-    if (response.ok) {
-      console.log('Email sent successfully');
-    } else {
-      console.error('Error sending email');
-    }
-  };
+  function handlePhoneChange(event) {
+    setPhone(event.target.value);
+  }
+
+  function handleSendEmail() {
+    const link = `https://example.com/link?email=${email}&phone=${phone}`;
+    const subject = 'Check out this link';
+    const body = `I thought you might be interested in this link:\n${link}`;
+    const mailtoUrl = `mailto:?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+  }
+
+  function handleSendSms() {
+    const link = `https://example.com/link?email=${email}&phone=${phone}`;
+    const body = `Check out this link: ${link}`;
+    const smsUrl = `sms:${phone}?body=${encodeURIComponent(body)}`;
+    window.location.href = smsUrl;
+  }
+
+  function handleShowLinkOptions() {
+    setShowLinkOptions(true);
+  }
 
   return (
-    <div>
-      <h1>Generate Link</h1>
-      <form>
-        <label>
-          Email:
+    <div className='GenerateLink'>
+      {showLinkOptions ? (
+        <>
+          <label htmlFor='email'>Email:</label>
           <input
-            type='text'
+            type='email'
+            id='email'
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={handleEmailChange}
+            style={{ textAlign: 'left' }}
           />
-        </label>
-        <br />
-        <label>
-          Phone Number:
+          <br />
+          <label htmlFor='phone'>Phone:</label>
           <input
-            type='text'
-            value={phoneNumber}
-            onChange={e => setPhoneNumber(e.target.value)}
+            type='tel'
+            id='phone'
+            value={phone}
+            onChange={handlePhoneChange}
+            style={{ textAlign: 'left' }}
           />
-        </label>
-        <br />
-        <button onClick={handleSMSSubmit}>Send SMS</button>
-        <button onClick={handleEmailSubmit}>Send Email</button>
-      </form>
+          <br />
+          <button onClick={handleSendEmail}>Send Email</button>
+          <button onClick={handleSendSms}>Send SMS</button>
+        </>
+      ) : (
+        <button onClick={handleShowLinkOptions}>Generate New Link</button>
+      )}
     </div>
   );
 }

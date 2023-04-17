@@ -106,6 +106,7 @@ function App() {
 
     const responseData = await response.json();
     if (responseData.errorType) {
+      console.log('API Error:', responseData.errorMessage);
       setError(true);
       setResult(null);
       return;

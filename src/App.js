@@ -121,11 +121,11 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-  }
 
-  // console.log('result', result);
-  // console.log('response', response);
-  // console.log('data', data);
+    console.log('result', result);
+    console.log('response', response);
+    console.log('data', data);
+  }
 
   return (
     <div className='App'>

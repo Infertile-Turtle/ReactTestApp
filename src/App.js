@@ -127,7 +127,7 @@ function App() {
           className='App-logo'
           alt='logo'
         />
-        {result.type !== null && !error ? (
+        {result !== null && !error ? (
           <h1>{result}</h1>
         ) : (
           <h1>{error ? 'Error, item does not exist' : 'Hello from V2'}</h1>

@@ -101,7 +101,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import GenerateLink from './GenerateLink';
+// import GenerateLink from './GenerateLink';
 
 function App() {
   const [linkId, setLinkId] = useState('');
@@ -160,12 +160,16 @@ function App() {
   }
 
   useEffect(() => {
+    console.log('result updated:', result);
+  }, [result]);
+
+  useEffect(() => {
     handleClick();
   }, [linkId]);
 
-  function generateLink() {
-    setShowGenerateLink(true);
-  }
+  // function generateLink() {
+  //   setShowGenerateLink(true);
+  // }
 
   return (
     <div className='App'>
@@ -175,16 +179,7 @@ function App() {
           className='App-logo'
           alt='logo'
         />
-        {showGenerateLink ? (
-          <GenerateLink />
-        ) : result !== null ? (
-          <h1>{result}</h1>
-        ) : (
-          <div className='link-buttons'>
-            <button onClick={handleClick}>Show Map Data</button>
-            <button onClick={generateLink}>Generate New Link</button>
-          </div>
-        )}
+        result !== null ? (<h1>{result}</h1>)
       </header>
     </div>
   );

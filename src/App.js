@@ -97,7 +97,9 @@ function App() {
         body: JSON.stringify(data),
       });
     } else {
+      setResult(null);
       setError(true);
+      console.log('result', result);
     }
   }
 

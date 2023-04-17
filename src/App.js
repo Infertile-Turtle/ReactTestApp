@@ -97,26 +97,30 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    const result = await response.json();
-    console.log('result', result);
-    console.log('response', response);
-    console.log('data', data);
 
-    if (response.ok) {
-      console.log('response OK block running');
-      setResult(result);
-      const clickUrl = `https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/updateclickcount`;
-      await fetch(clickUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-    } else {
+    if (!response.ok) {
       console.log('response NOT OK block running');
-      setResult(null);
       setError(true);
-      console.log('result', result);
+      setResult(null);
+      return;
     }
+
+    const responseData = await response.json();
+    if (responseData.errorType) {
+      console.log('API Error:', responseData.errorMessage);
+      setError(true);
+      setResult(null);
+      return;
+    }
+
+    setResult(responseData);
+
+    const clickUrl = `https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/updateclickcount`;
+    await fetch(clickUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
   }
 
   return (
@@ -127,10 +131,14 @@ function App() {
           className='App-logo'
           alt='logo'
         />
-        {result !== null && !error ? (
+        {result !== null ? (
           <h1>{result}</h1>
         ) : (
-          <h1>{error ? 'Error, item does not exist' : 'Hello from V2'}</h1>
+          <h1>
+            {error
+              ? `Error, no item with that link ID ${linkId}`
+              : 'Hello from V2'}
+          </h1>
         )}
         <button onClick={handleClick}>Generate Link</button>
       </header>

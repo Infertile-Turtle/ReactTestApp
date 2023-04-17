@@ -108,8 +108,10 @@ function App() {
     const responseData = await response.json();
     if (responseData.errorType) {
       console.log('API Error:', responseData.errorMessage);
+      console.log('result1', result);
       setError(true);
       setResult(null);
+      console.log('result2', result);
       return;
     }
 

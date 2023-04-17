@@ -179,7 +179,7 @@ function App() {
           className='App-logo'
           alt='logo'
         />
-        result !== null ? (<h1>{result}</h1>)
+        <h1>{result}</h1>
       </header>
     </div>
   );

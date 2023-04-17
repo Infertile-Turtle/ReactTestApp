@@ -122,6 +122,10 @@ function App() {
 
   // function to call the API and update click count
   async function handleClick() {
+    if (linkId === '') {
+      return;
+    }
+
     const url =
       'https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/fetchdata';
     const data = { linkID: linkId };

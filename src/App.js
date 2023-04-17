@@ -98,24 +98,35 @@ function App() {
       body: JSON.stringify(data),
     });
 
+    console.log('result1', result);
+    console.log('response1', response);
+
     if (!response.ok) {
       console.log('response NOT OK block running');
+      console.log('result2', result);
+      console.log('response2', response);
       setError(true);
       setResult(null);
+      console.log('result3', result);
+      console.log('response3', response);
       return;
     }
 
     const responseData = await response.json();
     if (responseData.errorType) {
       console.log('API Error:', responseData.errorMessage);
-      console.log('result1', result);
+      console.log('result4', result);
       setError(true);
       setResult(null);
-      console.log('result2', result);
+      console.log('result5', result);
       return;
     }
 
+    console.log('result6', result);
+    console.log('response6', response);
     setResult(responseData);
+    console.log('result7', result);
+    console.log('response7', response);
 
     const clickUrl = `https://fg4vvveib0.execute-api.us-east-1.amazonaws.com/dev/updateclickcount`;
     await fetch(clickUrl, {
@@ -124,9 +135,9 @@ function App() {
       body: JSON.stringify(data),
     });
 
-    console.log('result', result);
-    console.log('response', response);
-    console.log('data', data);
+    console.log('result8', result);
+    console.log('response8', response);
+    console.log('data8', data);
   }
 
   return (

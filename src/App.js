@@ -157,7 +157,7 @@ function App() {
 
   useEffect(() => {
     handleClick();
-  }, []);
+  }, [linkId]);
 
   function generateLink() {
     setShowGenerateLink(true);
